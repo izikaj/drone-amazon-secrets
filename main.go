@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 
@@ -9,12 +12,20 @@ import (
 
 func main() {
 	body := strings.NewReader("{\"path\": \"droneci/global\", \"name\": \"slack_webhook\"}")
-	r, _ := http.NewRequest("POST", "http://localhost:3000", body)
+	r, err := http.NewRequest("POST", "http://localhost:3000", body)
 
 	// Sign using the 'Signature' header
 	httpsignatures.DefaultSha256Signer.SignRequest("KeyId", "bea26a2221fd8090ea38720fc445eca6", r)
 	// OR Sign using the 'Authorization' header
 	// httpsignatures.DefaultSha256Signer.AuthRequest("KeyId", "bea26a2221fd8090ea38720fc445eca6", r)
 
-	http.DefaultClient.Do(r)
+	resp, err := http.DefaultClient.Do(r)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+
+	respBody, _ := ioutil.ReadAll(resp.Body)
+
+	fmt.Printf("RESPONSE: %v \n", string(respBody))
 }

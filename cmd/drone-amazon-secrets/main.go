@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/drone/drone-amazon-secrets/plugin"
-	"github.com/drone/drone-amazon-secrets/server"
 	"github.com/drone/drone-go/plugin/secret"
+	"github.com/izikaj/drone-amazon-secrets/plugin"
+	"github.com/izikaj/drone-amazon-secrets/server"
 
 	"github.com/aws/aws-sdk-go-v2/aws/ec2metadata"
 	"github.com/aws/aws-sdk-go-v2/aws/external"
@@ -62,6 +62,6 @@ func main() {
 	logrus.Infof("server listening on address %s", addr)
 
 	http.Handle("/", handler)
-	http.Handle("/healthz",healthzHandler)
+	http.Handle("/healthz", healthzHandler)
 	logrus.Fatal(http.ListenAndServe(addr, nil))
 }
