@@ -10,6 +10,8 @@ github.com/aws/aws-sdk-go-v2 v2.0.0-preview.4+incompatible h1:9qh7ItVskIwDsCiQnq
 github.com/aws/aws-sdk-go-v2 v2.0.0-preview.4+incompatible/go.mod h1:5DmdJpM48aUShwAgzBfZDXP+O5nH9IYDqzpovC7q9Y4=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/drone/drone-amazon-secrets v0.0.0-20191113020410-586cfcc16619 h1:0X8dvZrHa+UjoGo1ZLIEbLxC3J99YzSjOpuFl6gaWrY=
+github.com/drone/drone-amazon-secrets v0.0.0-20191113020410-586cfcc16619/go.mod h1:oab+jomwvAvAojak8jDkKdqOxdKz7yuwIEo3j4pZx8s=
 github.com/drone/drone-go v1.0.1 h1:vp3Mga8Gzr+3XWb54bobImZzuZftj9fzsPf5qIFL6mo=
 github.com/drone/drone-go v1.0.1/go.mod h1:GxyeGClYohaKNYJv/ZpsmVHtMJ7WhoT+uDaJNcDIrk4=
 github.com/fsnotify/fsnotify v1.4.7 h1:IXs+QLmnXW2CcXuY+8Mzv/fWEsPGWxqefPtCP5CnV9I=
