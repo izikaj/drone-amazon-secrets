@@ -12,6 +12,7 @@ import (
 
 	"github.com/drone/drone-go/drone"
 	"github.com/drone/drone-go/plugin/secret"
+	"github.com/sirupsen/logrus"
 
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/aws/aws-sdk-go/aws"
@@ -20,7 +21,6 @@ import (
 // New returns a new secret plugin that sources secrets
 // from the AWS secrets manager.
 func New(manager *secretsmanager.SecretsManager) secret.Plugin {
-	fmt.Printf("New Plugin?\n")
 	return &plugin{
 		manager: manager,
 	}
@@ -42,7 +42,7 @@ func (p *plugin) Find(ctx context.Context, req *secret.Request) (*drone.Secret, 
 	// to retrieve the secret at the requested path.
 	params, err := p.find(req.Path)
 	if err != nil {
-		fmt.Printf("secret error: %v\n", err)
+		logrus.Infof("secret retrieve error: %v", err)
 		return nil, fmt.Errorf("secret not found: %v", err.Error())
 	}
 	value := params[req.Name]
@@ -60,12 +60,11 @@ func (p *plugin) Find(ctx context.Context, req *secret.Request) (*drone.Secret, 
 	// user-defined filter logic.
 	repos := extractRepos(params)
 	if !match(req.Repo.Slug, repos) {
-		fmt.Printf("!!! params !!! %v\n", params)
-		fmt.Printf("!!! repos !!! %v\n", repos)
+		logrus.Infof("access denied: slug(%v) params(%v), repos(%v)", req.Repo.Slug, params, repos)
 		return nil, errors.New("access denied: repository does not match")
 	}
 
-	fmt.Printf("!!! path: %v, name: %v, value: %v\n", req.Path, req.Name, value)
+	logrus.Infof("Success: path: %v, name: %v, value: %v", req.Path, req.Name, value)
 
 	return &drone.Secret{
 		Data: value,
